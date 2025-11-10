@@ -18,7 +18,7 @@
     "dotenv": "^17.2.3",
     "figlet": "^1.9.3",
     "groq-sdk": "^0.34.0",
-    "expressx": "*",
+    "express": "*",
     "node-fetch": "^3.3.2",
     "util": "^0.12.5",
     "ws": "^8.18.3"
