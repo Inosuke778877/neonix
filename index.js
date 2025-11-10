@@ -15,9 +15,6 @@ import { initializeAutoMod } from './commands/tools/automod.js';
 import { initializeGiveaways } from './commands/tools/giveaway.js';
 import { initializeAI } from './commands/ai/chat.js';
 import express from 'express';
-import { fileURLToPath } from 'url';
-import path from 'path';
-
 // Initialize Express server
 const app = express();
 const PORT = 3000;
@@ -391,6 +388,7 @@ client.login(process.env.TOKEN).catch((error) => {
   console.error('Failed to login:', error);
   process.exit(1);
 });
+
 
 
 
