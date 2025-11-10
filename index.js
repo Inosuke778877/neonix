@@ -14,6 +14,40 @@ import { initializeWelcome } from './commands/tools/welcome.js';
 import { initializeAutoMod } from './commands/tools/automod.js';
 import { initializeGiveaways } from './commands/tools/giveaway.js';
 import { initializeAI } from './commands/ai/chat.js';
+import express from 'express';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+// Initialize Express server
+const app = express();
+const PORT = 3000;
+
+// Stats endpoint for API
+app.get('/api/stats', (req, res) => {
+  const stats = {
+    username: client.user?.username || 'Not connected',
+    userId: client.user?.id || 'N/A',
+    guilds: client.guilds.cache.size,
+    channels: client.channels.cache.size,
+    users: client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0),
+    uptime: process.uptime(),
+    commands: client.commands.size,
+    prefix: process.env.PREFIX,
+    noPrefixMode: client.db?.noPrefixMode || false,
+    memory: Math.round(process.memoryUsage().heapUsed / 1024 / 1024)
+  };
+  res.json(stats);
+});
+
+// Serve index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`[Web Server] Running at http://localhost:${PORT}`);
+});
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -357,3 +391,6 @@ client.login(process.env.TOKEN).catch((error) => {
   console.error('Failed to login:', error);
   process.exit(1);
 });
+
+
+
